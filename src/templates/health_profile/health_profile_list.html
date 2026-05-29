@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理趋势 | MindFlow</title>
+    <link href="/static/nifty/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/nifty/css/nifty.min.css" rel="stylesheet">
+    <link href="/static/nifty/plugins/morris-js/morris.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 1200px; padding: 32px 15px;">
+    <div class="clearfix">
+        <h1 class="pull-left">心理趋势总览</h1>
+        <div class="pull-right" style="margin-top: 25px;">
+            <a href="/health_profile/add/" class="btn btn-primary">新增评估</a>
+            <a href="/health_profile/analysis/" class="btn btn-default">查看分析</a>
+        </div>
+    </div>
+    <p class="text-muted">这里展示近期情绪评分、压力等级、精力水平和睡眠时长变化。</p>
+
+    <div class="row">
+        <div class="col-md-6"><div class="panel"><div class="panel-heading"><h3 class="panel-title">情绪评分趋势</h3></div><div class="panel-body"><div id="mood-chart" style="height: 250px;"></div></div></div></div>
+        <div class="col-md-6"><div class="panel"><div class="panel-heading"><h3 class="panel-title">压力等级趋势</h3></div><div class="panel-body"><div id="stress-chart" style="height: 250px;"></div></div></div></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"><div class="panel"><div class="panel-heading"><h3 class="panel-title">精力水平趋势</h3></div><div class="panel-body"><div id="energy-chart" style="height: 250px;"></div></div></div></div>
+        <div class="col-md-6"><div class="panel"><div class="panel-heading"><h3 class="panel-title">睡眠时长趋势</h3></div><div class="panel-body"><div id="sleep-chart" style="height: 250px;"></div></div></div></div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading"><h3 class="panel-title">评估记录</h3></div>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>时间</th>
+                    <th>情绪评分</th>
+                    <th>压力等级</th>
+                    <th>精力水平</th>
+                    <th>睡眠时长</th>
+                    <th>补充描述</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in health_profiles %}
+                    <tr>
+                        <td>{{ item.timestamp|date:"Y-m-d H:i" }}</td>
+                        <td>{{ item.mood_score|default:"-" }}</td>
+                        <td>{{ item.stress_level|default:"-" }}</td>
+                        <td>{{ item.energy_level|default:"-" }}</td>
+                        <td>{{ item.sleep_hours|default:"-" }}</td>
+                        <td style="max-width: 300px;">{{ item.reflection|default:"-" }}</td>
+                        <td>
+                            <form method="post" action="{% url 'delete_health_profile' item.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="7" class="text-center">还没有心理评估记录。</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="/static/nifty/js/jquery-2.2.4.min.js"></script>
+<script src="/static/nifty/js/bootstrap.min.js"></script>
+<script src="/static/nifty/plugins/morris-js/morris.min.js"></script>
+<script src="/static/nifty/plugins/morris-js/raphael-js/raphael.min.js"></script>
+<script>
+    var moodData = {{ mood_data|safe }};
+    var stressData = {{ stress_data|safe }};
+    var energyData = {{ energy_data|safe }};
+    var sleepData = {{ sleep_data|safe }};
+
+    function drawLine(element, data, label, color) {
+        new Morris.Line({
+            element: element,
+            data: data,
+            xkey: 'date',
+            ykeys: ['value'],
+            labels: [label],
+            lineColors: [color],
+            parseTime: false,
+            resize: true,
+            hideHover: 'auto'
+        });
+    }
+
+    drawLine('mood-chart', moodData, '情绪评分', '#5fa2dd');
+    drawLine('stress-chart', stressData, '压力等级', '#e67e5f');
+    drawLine('energy-chart', energyData, '精力水平', '#66bb6a');
+    drawLine('sleep-chart', sleepData, '睡眠时长', '#8e7cc3');
+</script>
+</body>
+</html>

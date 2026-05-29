@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增心理评估 | MindFlow</title>
+    <link href="/static/nifty/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/nifty/css/nifty.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 900px; padding: 32px 15px;">
+    <h1>新增心理状态评估</h1>
+    <p class="text-muted">这是比情绪日志更概括的一次状态快照，用来做趋势分析。</p>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <div class="panel">
+        <div class="panel-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="mood_score">情绪评分（1-10）</label>
+                    <input id="mood_score" name="mood_score" type="number" step="0.1" min="1" max="10" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="stress_level">压力等级（1-10）</label>
+                    <input id="stress_level" name="stress_level" type="number" step="0.1" min="1" max="10" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="energy_level">精力水平（1-10）</label>
+                    <input id="energy_level" name="energy_level" type="number" step="0.1" min="1" max="10" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="sleep_hours">昨晚睡眠时长（小时）</label>
+                    <input id="sleep_hours" name="sleep_hours" type="number" step="0.1" min="0" max="24" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="reflection">补充描述</label>
+                    <textarea id="reflection" name="reflection" rows="4" class="form-control" placeholder="例如：今天答辩准备很紧张，但晚上和同学沟通后轻松了一些"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">保存评估</button>
+                <a href="/health_profile/" class="btn btn-default">返回趋势页</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

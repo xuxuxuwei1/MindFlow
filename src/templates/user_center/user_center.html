@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 | MindFlow</title>
+    <link href="/static/nifty/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/nifty/css/nifty.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 900px; padding: 32px 15px;">
+    <h1>个人中心</h1>
+    <div class="panel">
+        <div class="panel-body text-center bg-info" style="color: #fff;">
+            <img alt="Avatar" class="img-lg img-circle img-border mar-btm" src="/static/nifty/img/profile-photos/1.png">
+            <h3 class="mar-n">{{ user_info.username }}</h3>
+            <p>{{ user_info.join_date|date:"Y-m-d" }} 加入 MindFlow</p>
+            <div class="row" style="margin-top: 24px;">
+                <div class="col-xs-4">
+                    <div class="text-2x">{{ exercises_count }}</div>
+                    <p>情绪日志</p>
+                </div>
+                <div class="col-xs-4">
+                    <div class="text-2x">{{ complete_count }}</div>
+                    <p>已完成计划</p>
+                </div>
+                <div class="col-xs-4">
+                    <div class="text-2x">{{ health_profile_count }}</div>
+                    <p>心理评估</p>
+                </div>
+            </div>
+        </div>
+        <div class="list-group bg-trans pad-btm pad-top">
+            <a class="list-group-item" href="/user_center/change_password">
+                <i class="demo-pli-file-edit icon-lg icon-fw"></i> 修改密码
+            </a>
+            <a class="list-group-item" href="/logout/">
+                <span class="label label-danger pull-right">Logout</span>
+                <i class="demo-pli-remove-user icon-lg icon-fw"></i> 退出登录
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

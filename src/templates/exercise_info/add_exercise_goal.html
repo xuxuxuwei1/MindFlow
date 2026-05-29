@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增放松计划 | MindFlow</title>
+    <link href="/static/nifty/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/nifty/css/nifty.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 900px; padding: 32px 15px;">
+    <h1>新增放松计划</h1>
+    <p class="text-muted">把你希望坚持的自我照顾行动拆成一个可执行的小计划。</p>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <div class="panel">
+        <div class="panel-body">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">保存计划</button>
+                <a href="/exercise_info/exercise_goal/" class="btn btn-default">返回列表</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

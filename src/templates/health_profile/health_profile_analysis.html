@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理分析 | MindFlow</title>
+    <link href="/static/nifty/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/nifty/css/nifty.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 960px; padding: 32px 15px;">
+    <h1>心理分析建议</h1>
+    <p class="text-muted">根据最近 7 次心理评估，给出一个简明趋势判断。</p>
+
+    <div class="panel panel-primary panel-colorful">
+        <div class="panel-body">
+            <h3 style="margin-top: 0;">{{ status_title }}</h3>
+            <p class="lead" style="margin-bottom: 0;">{{ status_desc }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3"><div class="panel"><div class="panel-body text-center"><h4>平均情绪</h4><p class="text-2x">{{ avg_mood|default:"-" }}</p></div></div></div>
+        <div class="col-sm-3"><div class="panel"><div class="panel-body text-center"><h4>平均压力</h4><p class="text-2x">{{ avg_stress|default:"-" }}</p></div></div></div>
+        <div class="col-sm-3"><div class="panel"><div class="panel-body text-center"><h4>平均精力</h4><p class="text-2x">{{ avg_energy|default:"-" }}</p></div></div></div>
+        <div class="col-sm-3"><div class="panel"><div class="panel-body text-center"><h4>平均睡眠</h4><p class="text-2x">{{ avg_sleep|default:"-" }}</p></div></div></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading"><h3 class="panel-title">建议语录</h3></div>
+                <div class="panel-body"><blockquote>{{ quote }}</blockquote></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading"><h3 class="panel-title">放松提醒</h3></div>
+                <div class="panel-body"><p>{{ tip }}</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading"><h3 class="panel-title">最新一次评估</h3></div>
+        <div class="panel-body">
+            {% if latest %}
+                <p><strong>记录时间：</strong>{{ latest.timestamp|date:"Y-m-d H:i" }}</p>
+                <p><strong>情绪评分：</strong>{{ latest.mood_score|default:"-" }}</p>
+                <p><strong>压力等级：</strong>{{ latest.stress_level|default:"-" }}</p>
+                <p><strong>精力水平：</strong>{{ latest.energy_level|default:"-" }}</p>
+                <p><strong>睡眠时长：</strong>{{ latest.sleep_hours|default:"-" }}</p>
+                <p><strong>补充描述：</strong>{{ latest.reflection|default:"-" }}</p>
+            {% else %}
+                <p>还没有评估记录，先去新增一条心理状态评估吧。</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

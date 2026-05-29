@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 | MindFlow</title>
+    <link href="/static/nifty/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/nifty/css/nifty.min.css" rel="stylesheet">
+    <link href="/static/nifty/css/demo/nifty-demo-icons.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="container" class="effect aside-float aside-bright mainnav-lg">
+    <header id="navbar">
+        <div id="navbar-container" class="boxed">
+            <div class="navbar-header">
+                <a href="/index/" class="navbar-brand">
+                    <img src="/static/nifty/img/logo.png" alt="MindFlow Logo" class="brand-icon">
+                    <div class="brand-title"><span class="brand-text">MindFlow</span></div>
+                </a>
+            </div>
+            <div class="navbar-content clearfix">
+                <ul class="nav navbar-top-links pull-left">
+                    <li class="tgl-menu-btn"><a class="mainnav-toggle" href="#"><i class="demo-pli-view-list"></i></a></li>
+                </ul>
+                <ul class="nav navbar-top-links pull-right">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                            <span class="pull-right"><i class="demo-pli-male ic-user"></i></span>
+                            <div class="username hidden-xs">{{ user.username }}</div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
+                            <div class="pad-all bord-btm">欢迎回来，{{ user.username }}</div>
+                            <ul class="head-list">
+                                <li><a href="/user_center/"><i class="demo-pli-male icon-lg icon-fw"></i>个人中心</a></li>
+                            </ul>
+                            <div class="pad-all text-right"><a href="/logout/" class="btn btn-primary">退出</a></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="boxed">
+        <div id="content-container">
+            <div id="page-title">
+                <h1 class="page-header text-overflow">MindFlow 心理情绪记录系统</h1>
+            </div>
+            <div id="page-content">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="panel">
+                            <div class="panel-body" style="padding:32px;">
+                                <h2 style="margin-top:0;">今天，你想先从哪一步开始照顾自己？</h2>
+                                <p class="text-muted">记录情绪不是为了给自己贴标签，而是为了更早看见变化、更稳地照顾内心。</p>
+                                <p style="margin-top:18px;">
+                                    <a href="/exercise_info/add_exercise_record/" class="btn btn-primary">情绪打卡</a>
+                                    <a href="/health_profile/" class="btn btn-default">查看趋势</a>
+                                    <a href="/exercise_info/add_exercise_goal/" class="btn btn-default">新建放松计划</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-info panel-colorful">
+                            <div class="panel-body">
+                                <h4>今日提醒</h4>
+                                <p>当你察觉到焦虑时，先暂停 30 秒，问问自己：我现在最需要的是什么？</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <h3>1. 情绪日志</h3>
+                                <p>记录开心、焦虑、疲惫、难过等状态，附带强度、压力来源和缓解方式。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <h3>2. 心理趋势</h3>
+                                <p>从情绪评分、压力等级、精力水平和睡眠时长观察自己的变化节律。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <h3>3. 自我照顾计划</h3>
+                                <p>为正念呼吸、睡前整理或社交连接设定执行次数和提醒语。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">建议语录</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4"><blockquote>允许自己慢一点，也是在前进。</blockquote></div>
+                            <div class="col-sm-4"><blockquote>情绪没有对错，重要的是看见它、理解它。</blockquote></div>
+                            <div class="col-sm-4"><blockquote>先照顾好自己，才有余力处理更多事情。</blockquote></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav id="mainnav-container">
+            <div id="mainnav">
+                <div id="mainnav-menu-wrap">
+                    <div class="nano">
+                        <div class="nano-content">
+                            <div id="mainnav-profile" class="mainnav-profile">
+                                <div class="profile-wrap">
+                                    <div class="pad-btm">
+                                        <img class="img-circle img-sm img-border" src="/static/nifty/img/profile-photos/1.png" alt="Profile Picture">
+                                    </div>
+                                    <a href="/user_center/" class="box-block"><p class="mnp-name">{{ user.username }}</p></a>
+                                </div>
+                            </div>
+                            <ul id="mainnav-menu" class="list-group">
+                                <li class="list-header">心理中心</li>
+                                <li class="active-link"><a href="/index/"><i class="demo-psi-home"></i><span class="menu-title"><strong>首页</strong></span></a></li>
+                                <li>
+                                    <a href="#"><i class="demo-psi-medal-2"></i><span class="menu-title"><strong>情绪日志</strong></span><i class="arrow"></i></a>
+                                    <ul class="collapse">
+                                        <li><a href="/exercise_info/exercise_record/">查看日志</a></li>
+                                        <li><a href="/exercise_info/add_exercise_record/">新增日志</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="demo-psi-star"></i><span class="menu-title"><strong>放松计划</strong></span><i class="arrow"></i></a>
+                                    <ul class="collapse">
+                                        <li><a href="/exercise_info/exercise_goal/">查看计划</a></li>
+                                        <li><a href="/exercise_info/add_exercise_goal/">新建计划</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="/health_profile/"><i class="demo-psi-receipt-4"></i><span class="menu-title"><strong>心理趋势</strong></span><i class="arrow"></i></a>
+                                    <ul class="collapse">
+                                        <li><a href="/health_profile/">趋势总览</a></li>
+                                        <li><a href="/health_profile/add/">新增评估</a></li>
+                                        <li><a href="/health_profile/analysis/">心理分析</a></li>
+                                    </ul>
+                                </li>
+                                <li class="list-divider"></li>
+                                <li class="list-header">其他</li>
+                                <li><a href="/user_center/"><i class="demo-psi-male"></i><span class="menu-title"><strong>个人中心</strong></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<script src="/static/nifty/js/jquery-2.2.4.min.js"></script>
+<script src="/static/nifty/js/bootstrap.min.js"></script>
+<script src="/static/nifty/js/nifty.min.js"></script>
+</body>
+</html>

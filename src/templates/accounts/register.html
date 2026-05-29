@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>注册 | MindFlow</title>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background:#f4f7fb;">
+<div class="container" style="max-width: 420px; padding-top: 80px;">
+    <div class="panel panel-default">
+        <div class="panel-body" style="padding: 32px;">
+            <h2 class="text-center">MindFlow</h2>
+            <p class="text-center text-muted">创建你的情绪记录账号</p>
+            <form id="register-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input id="username" name="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input id="password" name="password" type="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="check_password">确认密码</label>
+                    <input id="check_password" name="check_password" type="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">注册</button>
+            </form>
+            <div id="register-message" style="margin-top: 16px;"></div>
+            <p class="text-center" style="margin-top: 16px;">已有账号？<a href="/login/">返回登录</a></p>
+        </div>
+    </div>
+</div>
+<script src="/static/nifty/js/jquery-2.2.4.min.js"></script>
+<script>
+    $('#register-form').on('submit', function (event) {
+        event.preventDefault();
+        $.post('/register/', $(this).serialize(), function (data) {
+            if (data.success) {
+                $('#register-message').html('<div class="alert alert-success">注册成功，请登录。</div>');
+            } else {
+                $('#register-message').html('<div class="alert alert-danger">' + data.error + '</div>');
+            }
+        });
+    });
+</script>
+</body>
+</html>

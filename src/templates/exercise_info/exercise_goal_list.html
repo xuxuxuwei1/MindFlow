@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>放松计划 | MindFlow</title>
+    <link href="/static/nifty/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/nifty/css/nifty.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 1100px; padding: 32px 15px;">
+    <div class="clearfix">
+        <h1 class="pull-left">放松计划</h1>
+        <a href="/exercise_info/add_exercise_goal/" class="btn btn-primary pull-right" style="margin-top: 25px;">新增计划</a>
+    </div>
+    <p class="text-muted">共 {{ total_count }} 个计划，已完成 {{ complete_count }} 个，进行中 {{ doing_count }} 个，已过期未完成 {{ uncomplete_count }} 个。</p>
+    <div class="panel">
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>主题</th>
+                    <th>时间范围</th>
+                    <th>计划执行次数</th>
+                    <th>已记录次数</th>
+                    <th>提醒语</th>
+                    <th>鼓励语录</th>
+                    <th>进度</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in goals %}
+                    <tr>
+                        <td>{{ item.goal.type }}</td>
+                        <td>{{ item.goal.start_time|date:"Y-m-d H:i" }} - {{ item.goal.end_time|date:"Y-m-d H:i" }}</td>
+                        <td>{{ item.goal.target_calorie_cost }}</td>
+                        <td>{{ item.completed_sessions }}</td>
+                        <td>{{ item.goal.reminder_text|default:"-" }}</td>
+                        <td>{{ item.goal.support_quote|default:"-" }}</td>
+                        <td>
+                            <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar {% if item.is_completed %}progress-bar-success{% elif item.timeout %}progress-bar-danger{% else %}progress-bar-info{% endif %}"
+                                     style="width: {% if item.progress > 100 %}100{% else %}{{ item.progress|floatformat:0 }}{% endif %}%;">
+                                    {{ item.progress|floatformat:0 }}%
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'delete_exercise_goal' item.goal.exercise_goal_id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="8" class="text-center">还没有放松计划，先新建一个吧。</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
